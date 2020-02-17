@@ -13,4 +13,6 @@ jobs:
           DOCKER_USER: ${{ secrets.DockerHubUser }}
           DOCKER_PASS: ${{ secrets.DockerHubToken }}
         run: |
-          echo hello
+          BRANCH=$(echo -n ${BRANCH} | tr -c '[:alnum:]._-' '-')
+          TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${DOCKER_USER}'", "password": "'${DOCKER_PASS}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+          curl -s -X DELETE -H "Authorization: JWT ${TOKEN}" https://hub.docker.com/v2/repositories/varshavs/csi-do-plugin/tags/${BRANCH}/
