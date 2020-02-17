@@ -13,5 +13,4 @@ jobs:
           DOCKER_USER: ${{ secrets.DockerHubUser }}
           DOCKER_PASS: ${{ secrets.DockerHubToken }}
         run: |
-        BRANCH=$(echo -n ${BRANCH} | tr -c '[:alnum:]._-' '-')
-        echo ${BRANCH}
+        echo hello
